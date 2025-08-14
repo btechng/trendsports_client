@@ -1,0 +1,18 @@
+*{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,Segoe UI,Roboto;background:#0b1020;color:#e5e7eb}
+.container{max-width:1200px;margin:0 auto;padding:20px}
+.card{background:#0f172a;border:1px solid #1f2937;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.25);padding:16px}
+.grid{display:grid;gap:16px}
+.btn{padding:10px 14px;border-radius:12px;border:1px solid #334155;background:#2563eb;color:#fff;cursor:pointer}
+.btn.secondary{background:#111827;border-color:#374151}
+.badge{padding:4px 10px;border-radius:9999px;font-size:12px}
+.badge.pos{background:#22c55e33;color:#86efac}
+.badge.neg{background:#ef444433;color:#fca5a5}
+.badge.neu{background:#6b728033;color:#cbd5e1}
+.nav{display:flex;gap:12px;padding:12px;border-bottom:1px solid #1f2937;align-items:center;background:#0f172a;position:sticky;top:0;z-index:10}
+.nav a{color:#cbd5e1;text-decoration:none;padding:8px 12px;border-radius:10px}
+.nav a.active{background:#2563eb;color:#fff}
+.title{font-size:28px;font-weight:800}
+.subtitle{font-size:14px;color:#94a3b8}
+.input{background:#0b1328;border:1px solid #1f2a44;color:#e5e7eb;border-radius:12px;padding:10px 12px;width:100%}
+.stack{display:flex;flex-direction:column;gap:10px}
+.row{display:flex;gap:10px;align-items:center}
