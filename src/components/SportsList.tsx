@@ -1,20 +1,24 @@
-// src/components/SportsList.tsx
 import React, { useEffect, useState } from "react";
 import { API } from "../lib/api";
 
-interface SportsListProps {
-  apiPath: string;
+interface Fixture {
+  _id: string;
+  homeTeam: string;
+  awayTeam: string;
+  date: string;
+  league?: string;
 }
 
-export default function SportsList({ apiPath }: SportsListProps) {
-  const [fixtures, setFixtures] = useState<any[]>([]);
+export default function SportsList() {
+  const [fixtures, setFixtures] = useState<Fixture[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchFixtures = async () => {
       try {
-        const { data } = await API.get(apiPath);
+        // ✅ Correct path: /sports/fixtures?days=3
+        const { data } = await API.get<Fixture[]>("/sports/fixtures?days=3");
         setFixtures(data);
       } catch (err: any) {
         console.error("Error fetching sports fixtures:", err);
@@ -23,8 +27,9 @@ export default function SportsList({ apiPath }: SportsListProps) {
         setLoading(false);
       }
     };
+
     fetchFixtures();
-  }, [apiPath]);
+  }, []);
 
   if (loading) return <div>Loading fixtures...</div>;
   if (error) return <div className="error">{error}</div>;
@@ -33,10 +38,11 @@ export default function SportsList({ apiPath }: SportsListProps) {
     <div className="grid" style={{ gap: "8px" }}>
       {fixtures.map((f) => (
         <div key={f._id} className="card">
-          <div>
+          <div style={{ fontWeight: 700 }}>
             {f.homeTeam} vs {f.awayTeam}
           </div>
           <div className="subtitle">{f.date}</div>
+          {f.league && <div className="subtitle">{f.league}</div>}
         </div>
       ))}
     </div>
