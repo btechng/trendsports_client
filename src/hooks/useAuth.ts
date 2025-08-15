@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 type User = { id: string; email: string; name: string; score: number };
 type Decoded = { id: string; email: string; name: string; exp: number };
 
-export function useAuth(){
+export function useAuth() {
   const [user, setUser] = useState<User | null>(null);
-  useEffect(()=>{
+
+  useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       try {
@@ -18,22 +19,28 @@ export function useAuth(){
           localStorage.removeItem("token");
           localStorage.removeItem("user");
         }
-      } catch {}
+      } catch {
+        // invalid token, ignore
+      }
     }
   }, []);
-  function login(token: string, user: User){
+
+  function login(token: string, user: User) {
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(user));
     setUser(user);
   }
-  function logout(){
+
+  function logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
   }
-  function authHeader(){
+
+  function authHeader() {
     const t = localStorage.getItem("token");
     return t ? { Authorization: `Bearer ${t}` } : {};
   }
+
   return { user, login, logout, authHeader };
 }
